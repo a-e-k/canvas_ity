@@ -1,0 +1,3037 @@
+<!--
+  HTML/JavaScript canvas test suite v1.00 -- ISC license
+  Copyright (c) 2022 Andrew Kensler
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted, provided that the above
+  copyright notice and this permission notice appear in all copies.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test</title>
+  <style type="text/css">
+    <!--
+    @font-face { font-family: FontA; src: url(data:font/truetype;base64,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); }
+    @font-face { font-family: FontB; src: url(data:font/truetype;base64,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); }
+    @font-face { font-family: FontC; src: url(data:font/truetype;base64,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); }
+    @font-face { font-family: FontD; src: url(data:font/truetype;base64,AAEAAAA=); }
+    @font-face { font-family: FontE; src: url(data:font/truetype;base64,AAEAAAALAIAAAwAwT1MvMmisck8AAAE4AAAAYGNtYXAXewGCAAAB3AAAAUJjdnQgAEQFEQAAAyAAAAAEZ2x5ZjCUlAIAAANMAAAGhmhlYWQe1bIjAAAAvAAAADZoaGVhDf8FBAAAAPQAAAAkaG10eDmaBAMAAAGYAAAARGxvY2ERbxMOAAADJAAAAChtYXhwAHUAtwAAARgAAAAgbmFtZVZpNvsAAAnUAAAA23Bvc3T/aQBmAAAKsAAAAA==); }
+    @font-face { font-family: FontF; src: url(data:font/truetype;base64,AAEAAAALAIAAAwAwT1MvMmisck8AAAE4AAAAYGNtYXAXewGCAAAB3AAAAUJjdnQgAEQFEQAAAyAAAAAEZ2x5ZjCUlAIAAANMAAAGhmhlYWQe1bIjAAAAvAAAADZoaGVhDf8FBAAAAPQAAAAkaG10eDmaBAMAAAGYAAAARGxvY2ERbxMOAAADJAAAAChtYXhwAHUAtwAAARgAAAAgbmFtZVZpNvsAAAnUAAAA23Bvc3T/aQBmAAAKsAAAACAAAQAAAAEAAEPW4v5fDzz1AB0IAAAAAADcB1gvAAAAANwUDpf/+f5tB5AH8wAAAAgAAgAAAAAAAA==); }
+    @font-face { font-family: FontG; src: url(data:font/truetype;base64,AAEAAAABABAAAAAAaGVhZB7h+0cAAAAcAAAANgABAAAAAQAAC4VXZl8PPPUAHQgAAAAAANwHWC8AAAAA3CBXu//5/m0HkAfzAAAACAACAAAAAAAA); }
+    body { background: #c4c4c4; font-family: sans-serif; color: #505050; }
+    h2 { font-size: medium; }
+    div { background: #e0e0e0; border: 2px solid #a8a8a8; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4); display: inline-block; vertical-align: top; margin: 1rem; width: 260px; padding: 0.5rem; }
+    ul { padding: 0; margin-left: 1rem; width: fit-content; font-size: small; font-weight: bold; }
+    ul ul { font-weight: normal; }
+    canvas { border: 2px solid #a8a8a8; background: url(data:image/gif;base64,R0lGODdhEAAQAIACAMTExODg4CwAAAAAEAAQAAACH4xvoKuIzNyBSyYKbMDZcv15HAaSIlWiJ5Sya/RWVgEAOw==); background-attachment: fixed; }
+    -->
+  </style>
+</head>
+<body>
+
+<h1>Test</h1>
+
+<p>This page contains an HTML5 2D canvas port of the automated test suite
+for the canvas_ity library.  See <code>test.cpp</code> for the original
+C++ version.</p>
+
+<p>Examine the images below to see how your browser's canvas implementation
+renders each test and see how they relate to the results produced by the
+library (run the library's test harness with <code>--pngs</code> to get
+the images).  Compare the code for the JavaScript and C++ tests line-by-line
+to see how the HTML5 API maps to the library's API and vice-versa.</p>
+
+<div>
+<h2>scale_<wbr>uniform</h2>
+<canvas id="scale_uniform" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "scale_uniform" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.setLineDash( [ 1.0 ] );
+        that.lineCap = "round";
+        for ( let size = 8.0; size < Math.min( width, height ); size *= 2.0 )
+        {
+            that.scale( 2.0, 2.0 );
+            that.strokeRect( 0.0, 0.0, 8.0, 8.0 );
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>scale_<wbr>non_<wbr>uniform</h2>
+<canvas id="scale_non_uniform" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "scale_non_uniform" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.setLineDash( [ 4.0 ] );
+        that.scale( 4.0, 0.5 );
+        that.strokeRect( width * 0.125 / 4.0, height * 0.125 / 0.5,
+                         width * 0.75 / 4.0, height * 0.75 / 0.5 );
+    } );
+</script>
+</div>
+
+<div>
+<h2>rotate</h2>
+<canvas id="rotate" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "rotate" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        for ( let step = 0; step < 64; ++step )
+        {
+            that.rotate( 3.14159265 / 2.0 / 64.0 );
+            that.strokeRect( 0.0, 0.0, width, height );
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Upper-left changes in apparent line density.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Upper-left changes in apparent line density.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Jaggies show on one side of lines.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Upper-left changes in apparent line density.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>translate</h2>
+<canvas id="translate" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "translate" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        for ( let step = 0.0; step < 32.0; step += 1.0 )
+        {
+            that.translate( ( 0.5 - step / 32.0 ) * width * 0.2,
+                            height / 32.0 );
+            that.beginPath();
+            that.arc( 0.0, 0.0, width * 0.125, 0.0, 6.28318531 );
+            that.closePath();
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>transform</h2>
+<canvas id="transform" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "transform" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        for ( let step = 0; step < 8; ++step )
+        {
+            that.transform( 1.0, 0.0, 0.1, 1.0, width * -0.05, 0.0 );
+            that.strokeRect( width * 0.25, height * 0.25,
+                             width * 0.5, height * 0.5 );
+        }
+    } );
+</script>
+<ul>
+  <li>Safari</li>
+  <ul>
+    <li>Jaggies show on one side of lines.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>transform_<wbr>fill</h2>
+<canvas id="transform_fill" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "transform_fill" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const checker = new Uint8ClampedArray( 1024 );
+        for ( let index = 0; index < 1024; ++index )
+            checker[ index ] =
+                ( ( index >> 5 & 1 ) ^ ( index >> 9 & 1 ) ^
+                  ( ( index & 3 ) == 3 ) ) * 255;
+        const image = document.createElement( "canvas" );
+        image.width = 16;
+        image.height = 16;
+        image.getContext( "2d" ).putImageData(
+            new ImageData( checker, 16, 16 ), 0, 0 );
+        that.fillStyle = that.createPattern( image, "repeat" );
+        that.beginPath();
+        that.rect( width * 0.2, height * 0.2,
+                   width * 0.6, height * 0.6 );
+        that.transform( 1.0, 0.5, -0.5, 1.0, 0.0, 0.0 );
+        that.fill();
+    } );
+</script>
+</div>
+
+<div>
+<h2>transform_<wbr>stroke</h2>
+<canvas id="transform_stroke" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "transform_stroke" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 8.0;
+        that.setLineDash( [ 22.0, 8.0, 10.0, 8.0 ] );
+        that.beginPath();
+        that.arc( width * 0.5, height * 0.5, Math.min( width, height ) * 0.4,
+                  0.0, 6.28318531 );
+        that.closePath();
+        that.transform( 1.0, 1.0, 0.0, 2.0, 0.0, 0.0 );
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>set_<wbr>transform</h2>
+<canvas id="set_transform" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "set_transform" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        for ( let step = 0; step < 8; ++step )
+            that.setTransform( 1.0, 0.0, 0.1, 1.0, width * -0.05, 0.0 );
+        that.strokeRect( width * 0.25, height * 0.25,
+                         width * 0.5, height * 0.5 );
+    } );
+</script>
+<ul>
+  <li>Safari</li>
+  <ul>
+    <li>Jaggies show on one side of lines.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>global_<wbr>alpha</h2>
+<canvas id="global_alpha" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "global_alpha" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 3.0;
+        for ( let y = 0.0; y < 6.0; y += 1.0 )
+            for ( let x = 0.0; x < 6.0; x += 1.0 )
+            {
+                that.fillStyle = "rgba(" + x / 5.0 * 255 + ",255," +
+                    y / 5.0 * 255 + "," + x / 5.0 + ")";
+                that.globalAlpha = y / 4.0 - 0.25;
+                that.beginPath();
+                that.rect( ( x + 0.1 ) / 6.0 * width, ( y + 0.1 ) / 6.0 * height,
+                           0.8 / 6.0 * width, 0.8 / 6.0 * height );
+                that.fill();
+                that.stroke();
+            }
+    } );
+</script>
+</div>
+
+<div>
+<h2>global_<wbr>composite_<wbr>operation</h2>
+<canvas id="global_composite_operation" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "global_composite_operation" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const operations = [
+            "source-in", "copy", "source-out", "destination-in",
+            "destination-atop", "lighter", "destination-over",
+            "destination-out", "source-atop", "source-over", "xor" ];
+        const operationsValue = [ 1, 2, 3, 4, 7, 10, 11, 12, 13, 14, 15 ];
+        const boxWidth = 0.25 * width;
+        const boxHeight = 0.25 * height;
+        for ( let index = 0; index < 11; ++index )
+        {
+            const column = operationsValue[ index ] % 4;
+            const row = Math.trunc( operationsValue[ index ] / 4 );
+            that.save();
+            that.beginPath();
+            that.rect( column * boxWidth, row * boxHeight,
+                       boxWidth, boxHeight );
+            that.clip();
+            that.fillStyle = "#0000ff";
+            that.fillRect( ( column + 0.4 ) * boxWidth,
+                           ( row + 0.4 ) * boxHeight,
+                           0.4 * boxWidth, 0.4 * boxHeight );
+            that.globalCompositeOperation = operations[ index ];
+            that.fillStyle = "#ff0000";
+            that.fillRect( ( column + 0.2 ) * boxWidth,
+                           ( row + 0.2 ) * boxHeight,
+                           0.4 * boxWidth, 0.4 * boxHeight );
+            that.restore();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>shadow_<wbr>color</h2>
+<canvas id="shadow_color" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "shadow_color" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.shadowOffsetX = 5.0;
+        that.shadowOffsetY = 5.0;
+        for ( let row = 0.0; row < 5.0; row += 1.0 )
+        {
+            const y = ( row + 0.25 ) * 0.2 * height;
+            that.fillStyle = "rgba(0,0,0," + 0.25 * row + ")";
+            that.shadowColor = "rgba(255,-255,0,0.25)";
+            that.fillRect( 0.05 * width, y,
+                           0.15 * width, 0.1 * height );
+            that.shadowColor = "rgba(0,255,0,0.5)";
+            that.fillRect( 0.30 * width, y,
+                           0.15 * width, 0.1 * height );
+            that.shadowColor = "rgba(0,0,510,0.75)";
+            that.fillRect( 0.55 * width, y,
+                           0.15 * width, 0.1 * height );
+            that.shadowColor = "rgba(255,255,255,100.0)";
+            that.fillRect( 0.80 * width, y,
+                           0.15 * width, 0.1 * height );
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>shadow_<wbr>offset</h2>
+<canvas id="shadow_offset" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "shadow_offset" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.shadowBlur = 2.0;
+        that.fillStyle = "#ffffff";
+        that.shadowColor = "#000000";
+        for ( let y = 0.0; y < 5.0; y += 1.0 )
+            for ( let x = 0.0; x < 5.0; x += 1.0 )
+            {
+                that.shadowOffsetX = ( x - 2.0 ) * 4.0;
+                that.shadowOffsetY = ( y - 2.0 ) * 4.0;
+                that.fillRect( ( x + 0.25 ) * 0.2 * width,
+                               ( y + 0.25 ) * 0.2 * height,
+                               0.1 * width, 0.1 * height );
+            }
+    } );
+</script>
+</div>
+
+<div>
+<h2>shadow_<wbr>offset_<wbr>offscreen</h2>
+<canvas id="shadow_offset_offscreen" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "shadow_offset_offscreen" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.shadowOffsetX = width;
+        that.fillStyle = "#ff0000";
+        that.shadowColor = "rgba(0,0,0,0.5)";
+        that.fillRect( width * -0.6875, height * 0.0625,
+                       width * 0.375, height * 0.375 );
+        that.beginPath();
+        that.arc( width * 0.5, height * 0.75, Math.min( width, height ) * 0.2,
+                  0.0, 6.28318531 );
+        that.closePath();
+        that.fill();
+    } );
+</script>
+</div>
+
+<div>
+<h2>shadow_<wbr>blur</h2>
+<canvas id="shadow_blur" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "shadow_blur" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#ffffff";
+        that.shadowColor = "#000000";
+        that.shadowOffsetX = 5.0;
+        that.shadowOffsetY = 5.0;
+        for ( let x = 0.0; x < 5.0; x += 1.0 )
+            for ( let y = 4.0; y >= 0.0; y -= 1.0 )
+            {
+                that.shadowBlur = ( y * 5.0 + x ) * 0.5 - 0.5;
+                that.fillRect( ( x + 0.25 ) * 0.2 * width,
+                               ( y + 0.25 ) * 0.2 * height,
+                               0.1 * width, 0.1 * height );
+            }
+    } );
+</script>
+</div>
+
+<div>
+<h2>shadow_<wbr>blur_<wbr>offscreen</h2>
+<canvas id="shadow_blur_offscreen" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "shadow_blur_offscreen" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#ffffff";
+        that.shadowColor = "#000000";
+        that.shadowBlur = 5.0;
+        that.fillRect( 0.0, height * 2.0, width, height );
+        that.fillRect( 0.0, height * -2.0, width, height );
+        that.fillRect( width + 1.0, 0, width, height );
+        that.fillRect( -width - 1.0, 0, width, height );
+    } );
+</script>
+</div>
+
+<div>
+<h2>shadow_<wbr>blur_<wbr>composite</h2>
+<canvas id="shadow_blur_composite" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "shadow_blur_composite" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.5;
+        that.arc( 0.5 * width, 0.5 * height, radius, 0.0, 6.28318531 );
+        that.clip();
+        that.fillStyle = "#0000ff";
+        that.shadowColor = "#000000";
+        that.fillRect( 0.4 * width, 0.0, 0.2 * width, height );
+        that.globalCompositeOperation = "destination-atop";
+        that.strokeStyle = "#ff0000";
+        that.setLineDash( [ 16.0, 4.0 ] );
+        that.lineWidth = 15.0;
+        that.shadowOffsetX = 5.0;
+        that.shadowOffsetY = 5.0;
+        that.shadowBlur = 6.0;
+        that.shadowColor = "#000000";
+        that.beginPath();
+        that.arc( 0.45 * width, 0.85 * height, radius * 0.5, 0.0, 6.28318531 );
+        that.closePath();
+        that.stroke();
+        that.globalCompositeOperation = "source-over";
+        that.beginPath();
+        that.arc( 0.75 * width, 0.25 * height, radius, 0.0, 6.28318531 );
+        that.closePath();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Destination-atop layers incorrectly.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Destination-atop layers incorrectly.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>line_<wbr>width</h2>
+<canvas id="line_width" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_width" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 4.0;
+        for ( let step = 0.0; step < 16.0; step += 1.0 )
+        {
+            const left = ( step + 0.25 ) / 16.0 * width;
+            const right = ( step + 0.75 ) / 16.0 * width;
+            that.beginPath();
+            that.moveTo( left, 0.0 );
+            that.bezierCurveTo( left, 0.5 * height,
+                                right, 0.5 * height,
+                                right, height );
+            that.lineWidth = 0.5 * ( step - 1 );
+            that.stroke();
+        }
+        that.fillStyle = "#ffffff";
+        that.globalCompositeOperation = "source-atop";
+        that.fillRect( 0.0, 0.5 * height, width, 0.5 * height );
+        that.globalCompositeOperation = "destination-over";
+        that.fillRect( 0.0, 0.25 * height, width, 0.25 * height );
+        that.fillStyle = "#000000";
+        that.fillRect( 0.0, 0.5 * height, width, 0.25 * height );
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>width_<wbr>angular</h2>
+<canvas id="line_width_angular" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_width_angular" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        for ( let step = 0.0; step < 5.0; step += 1.0 )
+        {
+            const grey = ( step + 1.0 ) / 5.0;
+            that.strokeStyle = "rgb(" + grey * 255.0 + "," + grey * 255.0 +
+                "," + grey * 255.0 + ")";
+            that.beginPath();
+            that.moveTo( 0.1 * width, 0.1 * height );
+            that.bezierCurveTo( 1.2 * width, 1.0 * height,
+                                1.2 * width, -0.0 * height,
+                                0.1 * width, 0.9 * height );
+            that.lineWidth = 30.0 - 7.0 * step;
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>cap</h2>
+<canvas id="line_cap" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_cap" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 24.0;
+        const caps = [ "butt", "square", "round" ];
+        for ( let index = 0; index < 3; ++index )
+        {
+            const right = ( index + 1 ) / 3.0 * width - 20.0;
+            that.beginPath();
+            that.moveTo( right, 0.125 * height );
+            that.bezierCurveTo( right, 0.125 * height + 100.0,
+                                right - 100.0, 0.875 * height,
+                                right, 0.875 * height );
+            that.lineCap = caps[ index ];
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>cap_<wbr>offscreen</h2>
+<canvas id="line_cap_offscreen" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_cap_offscreen" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 36.0;
+        const caps = [ "butt", "square", "round" ];
+        for ( let index = 0; index < 3; ++index )
+        {
+            const x = ( index + 0.5 ) / 3.0 * width;
+            const y = ( index + 0.5 ) / 3.0 * height;
+            that.beginPath();
+            that.moveTo( x, -19.0 );
+            that.lineTo( x, -9.0 );
+            that.moveTo( x, height + 17.0 );
+            that.lineTo( x, height + 27.0 );
+            that.moveTo( -27.0, y );
+            that.lineTo( -17.0, y );
+            that.moveTo( width + 9.0, y );
+            that.lineTo( width + 19.0, y );
+            that.lineCap = caps[ index ];
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>join</h2>
+<canvas id="line_join" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_join" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 16.0;
+        const joins = [ "miter", "bevel", "round" ];
+        for ( let index = 0; index < 3; ++index )
+        {
+            const left = ( index + 0.25 ) / 3.0 * width;
+            const right = ( index + 0.75 ) / 3.0 * width;
+            that.beginPath();
+            that.moveTo( left, 0.2 * height );
+            that.lineTo( left, 0.1 * height );
+            that.lineTo( left, 0.2 * height );
+            that.lineTo( right, 0.2 * height );
+            that.lineTo( left, 0.2 * height );
+            that.lineTo( left, 0.3 * height );
+            that.lineTo( right, 0.3 * height );
+            that.lineTo( right, 0.4 * height );
+            that.lineTo( right, 0.5 * height );
+            that.lineTo( left, 0.4 * height );
+            that.lineTo( left, 0.5 * height );
+            that.lineTo( right, 0.6 * height );
+            that.bezierCurveTo( right, height,
+                                left, 0.4 * height,
+                                left, 0.7 * height );
+            that.bezierCurveTo( left, 0.8 * height,
+                                right, 0.8 * height,
+                                right, 0.9 * height );
+            that.lineJoin = joins[ index ];
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>join_<wbr>offscreen</h2>
+<canvas id="line_join_offscreen" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_join_offscreen" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 36.0;
+        const joins = [ "miter", "bevel", "round" ];
+        for ( let index = 0; index < 3; ++index )
+        {
+            const x = ( index + 0.5 ) / 3.0 * width;
+            const y = ( index + 0.5 ) / 3.0 * height;
+            that.beginPath();
+            that.moveTo( x - 10.0, -55.0 );
+            that.lineTo( x - 10.0, -5.0 );
+            that.lineTo( x + 10.0, -55.0 );
+            that.moveTo( x - 10.0, height + 130.0 );
+            that.lineTo( x + 10.0, height + 80.0 );
+            that.lineTo( x + 10.0, height + 130.0 );
+            that.moveTo( -130.0, y - 10.0 );
+            that.lineTo( -80.0, y - 10.0 );
+            that.lineTo( -130.0, y + 10.0 );
+            that.moveTo( height + 55.0, y - 10.0 );
+            that.lineTo( height + 5.0, y + 10.0 );
+            that.lineTo( height + 55.0, y + 10.0 );
+            that.lineJoin = joins[ index ];
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>miter_<wbr>limit</h2>
+<canvas id="miter_limit" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "miter_limit" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        for ( let line = 0.0; line < 4.0; line += 1.0 )
+        {
+            that.lineWidth = 1.5 * line + 1.0;
+            that.miterLimit = 20.0;
+            for ( let limit = 0.0; limit < 8.0; limit += 1.0 )
+            {
+                const left = ( limit + 0.2 ) / 8.0 * width;
+                const middle = ( limit + 0.5 ) / 8.0 * width;
+                const right = ( limit + 0.7 ) / 8.0 * width;
+                const top = ( line + 0.3 ) / 4.0 * height;
+                const bottom = ( line + 0.7 ) / 4.0 * height;
+                that.beginPath();
+                that.moveTo( left, bottom );
+                that.lineTo( left, top );
+                that.lineTo( right, bottom );
+                that.lineTo( middle, top );
+                that.miterLimit = 1.5 * limit;
+                that.stroke();
+            }
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Miters are missing on thin lines.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Miters are missing on thin lines.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Miters are missing on thin lines.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>line_<wbr>dash_<wbr>offset</h2>
+<canvas id="line_dash_offset" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_dash_offset" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 6.0;
+        that.setLineDash( [ 20.0, 8.0, 8.0, 8.0 ] );
+        for ( let step = 0.0; step < 16.0; step += 1.0 )
+        {
+            const left = ( step + 0.125 ) / 16.0 * width;
+            const right = ( step + 0.875 ) / 16.0 * width;
+            that.beginPath();
+            that.moveTo( left, 0.0 );
+            that.lineTo( right, 0.125 * height );
+            that.lineTo( left, 0.375 * height );
+            that.lineTo( right, 0.625 * height );
+            that.lineTo( left, 0.875 * height );
+            that.lineTo( right, height );
+            that.lineDashOffset = ( step / 16.0 - 0.5 ) * 44.0;
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>dash</h2>
+<canvas id="line_dash" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_dash" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 6.0;
+        that.setLineDash( [ 10.0 ] );
+        that.stroke();
+        that.moveTo( 0.0, 0.0 );
+        that.stroke();
+        that.beginPath();
+        that.moveTo( width * 0.25, 0.0 );
+        that.lineTo( width * 0.25, height );
+        that.stroke();
+        that.setLineDash( [ 20.0, -8.0 ] );
+        that.beginPath();
+        that.moveTo( width * 0.375, 0.0 );
+        that.lineTo( width * 0.375, height );
+        that.stroke();
+        that.setLineDash( [ 20.0, 8.0, 8.0, 8.0 ] );
+        that.beginPath();
+        that.moveTo( width * 0.5, 0.0 );
+        that.lineTo( width * 0.5, height );
+        that.stroke();
+        that.setLineDash( [ 0.0, 8.0, 2.0, 8.0 ] );
+        that.beginPath();
+        that.moveTo( width * 0.625, 0.0 );
+        that.lineTo( width * 0.625, height );
+        that.stroke();
+        that.setLineDash( [] );
+        that.beginPath();
+        that.moveTo( width * 0.75, 0.0 );
+        that.lineTo( width * 0.75, height );
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>dash_<wbr>closed</h2>
+<canvas id="line_dash_closed" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_dash_closed" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 32.0;
+        that.setLineDash( [ 96.0, 32.0 ] );
+        that.lineDashOffset = -80.0;
+        that.strokeRect( 0.25 * width, 0.25 * height,
+                         0.5 * width, 0.5 * height );
+        that.setLineDash( [ 96.0, 32.0, 1024.0, 16.0 ] );
+        that.lineDashOffset = 128.0;
+        that.strokeRect( 0.09375 * width, 0.09375 * height,
+                         0.8125 * width, 0.8125 * height );
+    } );
+</script>
+<ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Outer rectangle is not closed in upper left.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Neither rectangle is closed in upper left.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Outer rectangle is not closed in upper left.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>line_<wbr>dash_<wbr>overlap</h2>
+<canvas id="line_dash_overlap" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_dash_overlap" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineCap = "round";
+        that.lineWidth = 16.0;
+        that.setLineDash( [ 14.0, 12.0 ] );
+        for ( let index = 0; index < 4; ++index )
+        {
+            const flip = ( index == 3 ? -1.0 : 1.0 );
+            const topY = ( index & 1 ? 0.25 : 0.1 ) * height;
+            const bottomY = ( index & 1 ? 0.9 : 0.75 ) * height;
+            const midX = ( index & 2 ? 0.75 : 0.25 ) * width;
+            const topWidth = ( index & 1 ? 0.25 : 0.55 ) * flip * width;
+            const bottomWidth = ( index & 1 ? 0.55 : 0.25 ) * flip * width;
+            that.moveTo( midX, topY );
+            that.bezierCurveTo( midX - topWidth, topY,
+                                midX + bottomWidth, bottomY,
+                                midX, bottomY );
+            that.bezierCurveTo( midX - bottomWidth, bottomY,
+                                midX + topWidth, topY,
+                                midX, topY );
+            that.closePath();
+        }
+        that.fill();
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>dash_<wbr>offscreen</h2>
+<canvas id="line_dash_offscreen" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_dash_offscreen" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 6.0;
+        that.setLineDash( [
+            0.0, width * 20.5 * 3.14159265 - height * 0.5 + 1.0,
+            height - 2.0, 0.0 ] );
+        for ( let step = -2.0; step <= 2.0; step += 1.0 )
+        {
+            that.beginPath();
+            that.arc( width * -20.0, height * 0.5,
+                      width * ( 20.5 - step * 0.1 ),
+                      3.14159265, 1.5707963268 );
+            that.lineDashOffset = width * step * 0.1 * 3.14159265;
+            that.stroke();
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Dashes start slightly too soon.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Dashes start slightly too soon.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Dashes start slightly too soon.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>color</h2>
+<canvas id="color" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "color" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.4;
+        that.fillStyle = "rgba(510,-255,0,0.5)";
+        that.strokeStyle = "rgba(0,0,255,1.5)";
+        that.lineWidth = 16.0;
+        that.arc( 0.5 * width, 0.5 * height, radius, 0.0, 6.28318531 );
+        that.closePath();
+        that.fill();
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>linear_<wbr>gradient</h2>
+<canvas id="linear_gradient" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "linear_gradient" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.4;
+        let gradient = that.createLinearGradient( 0.3 * width, 0.3 * height,
+                                                  0.7 * width, 0.7 * height );
+        gradient.addColorStop( 0.0, "rgba(0,255,0,0.5)" );
+        gradient.addColorStop( 1.0, "rgba(255,0,255,100.0)" );
+        that.fillStyle = gradient;
+        gradient = that.createLinearGradient( 0.3 * width, 0.7 * height,
+                                              0.7 * width, 0.3 * height );
+        gradient.addColorStop( 0.0, "rgba(0,0,255,0.5)" );
+        gradient.addColorStop( 1.0, "#ffff00" );
+        that.strokeStyle = gradient;
+        that.lineWidth = 16.0;
+        that.arc( 0.5 * width, 0.5 * height, radius, 0.0, 6.28318531 );
+        that.closePath();
+        that.fill();
+        that.stroke();
+        gradient = that.createLinearGradient( 0.5 * width, 0.5 * height,
+                                              0.5 * width, 0.5 * height );
+        gradient.addColorStop( 0.0, "rgba(255,0,0,0.5)" );
+        gradient.addColorStop( 1.0, "#00ffff" );
+        that.strokeStyle = gradient;
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>radial_<wbr>gradient</h2>
+<canvas id="radial_gradient" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "radial_gradient" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.4;
+        let gradient = that.createRadialGradient( 0.0, 0.0, radius,
+                                                  width, height, 0.5 * radius );
+        gradient.addColorStop( 0.0, "rgba(0,255,0,0.5)" );
+        gradient.addColorStop( 1.0, "#ff00ff" );
+        that.fillStyle = gradient;
+        gradient = that.createRadialGradient( 0.0, height, radius,
+                                              width, 0.0, 0.5 * radius );
+        gradient.addColorStop( 0.0, "rgba(0,0,255,0.5)" );
+        gradient.addColorStop( 1.0, "#ffff00" );
+        that.strokeStyle = gradient;
+        that.lineWidth = 16.0;
+        that.arc( 0.5 * width, 0.5 * height, radius, 0.0, 6.28318531 );
+        that.closePath();
+        that.fill();
+        that.stroke();
+        gradient = that.createRadialGradient( 0.5 * width, 0.4 * height, 10.0,
+                                              0.5 * width, 0.6 * height, 0.0 );
+        try {
+            gradient = that.createRadialGradient( 0.0, 0.5 * height, -10.0,
+                                                  width, 0.5 * height, 10.0 );
+        } catch ( error ) {}
+        gradient.addColorStop( 0.0, "rgba(255,0,0,0.5)" );
+        gradient.addColorStop( 1.0, "#00ffff" );
+        that.strokeStyle = gradient;
+        that.stroke();
+        gradient = that.createRadialGradient( 0.5 * width, 0.5 * height, 0.0,
+                                              0.5 * width, 0.5 * height, radius );
+        gradient.addColorStop( 0.15, "#000000" );
+        gradient.addColorStop( 0.20, "rgba(0,0,0,0.0)" );
+        that.fillStyle = gradient;
+        that.fill();
+    } );
+</script>
+</div>
+
+<div>
+<h2>color_<wbr>stop</h2>
+<canvas id="color_stop" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "color_stop" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const gradient = that.createLinearGradient( 0.1 * width, 0.0,
+                                                    0.9 * width, 0.0 );
+        that.fillStyle = gradient;
+        that.fillRect( 0.0, 0.0, width, 0.1 * height );
+        try {
+            gradient.addColorStop( -1.0, "#00ff00" );
+            gradient.addColorStop( 2.0, "#ff0000" );
+        } catch ( error ) {}
+        gradient.addColorStop( 0.3, "rgba(-255,0,510,2.0)" );
+        gradient.addColorStop( 0.3, "#ffffff" );
+        gradient.addColorStop( 0.3, "#000000" );
+        gradient.addColorStop( 0.0, "#0000cc" );
+        gradient.addColorStop( 1.0, "#ffffff" );
+        gradient.addColorStop( 0.7, "#e6e6e6" );
+        gradient.addColorStop( 0.6, "#1a1a1a" );
+        that.fillRect( 0.0, 0.1 * height, width,  0.4 * height );
+        that.fillStyle = gradient;
+        that.fillRect( 0.0, 0.5 * height, width, 0.4 * height );
+    } );
+</script>
+<ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Gradient object is not live.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Gradient object is not live.</li>
+    <li>Does not render anything.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Gradient object is not live.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>pattern</h2>
+<canvas id="pattern" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "pattern" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const checker = new Uint8ClampedArray( 256 );
+        for ( let index = 0; index < 256; ++index )
+            checker[ index ] =
+                ( ( ( index >> 2 & 1 ) ^ ( index >> 5 & 1 ) ) |
+                  ( ( index & 3 ) == 3 ) ) * 255;
+        const image = document.createElement( "canvas" );
+        image.width = 8;
+        image.height = 8;
+        image.getContext( "2d" ).putImageData(
+            new ImageData( checker, 8, 8 ), 0, 0 );
+        that.arc( 0.5 * width, 0.5 * height, 32.0, 0.0, 6.28318531 );
+        that.closePath();
+        that.lineWidth = 20.0;
+        that.strokeStyle = "#000000";
+        try {
+            that.strokeStyle = that.createPattern( null, "repeat" );
+        } catch ( error ) {}
+        that.stroke();
+        that.lineWidth = 16.0;
+        that.strokeStyle = that.createPattern( image, "repeat" );
+        that.stroke();
+        for ( let scale = 8.0; scale >= 1.0; scale /= 2.0 )
+        {
+            that.setTransform( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
+            that.scale( scale, scale );
+            const sizeX = 0.5 * width / scale;
+            const sizeY = 0.5 * height / scale;
+            that.fillStyle = that.createPattern( image, "no-repeat" );
+            that.fillRect( 0.0, 0.0, sizeX, sizeY );
+            that.fillStyle = that.createPattern( image, "repeat-x" );
+            that.fillRect( sizeX, 0.0, sizeX, sizeY );
+            that.fillStyle = that.createPattern( image, "repeat-y" );
+            that.fillRect( 0.0, sizeY, sizeX, sizeY );
+            that.fillStyle = that.createPattern( image, "repeat" );
+            that.fillRect( sizeX, sizeY, sizeX, sizeY );
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Filtering does not consistently wrap.</li>
+    <li>Patterns with repeat-x or repeat-y are invisible.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Filtering does not consistently wrap.</li>
+    <li>Patterns with repeat-x or repeat-y are invisible.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Filtering does not consistently wrap.</li>
+    <li>Fades from opaque to transparent where not repeating.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Filtering does not wrap.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Filtering does not consistently wrap.</li>
+    <li>Fades from opaque to transparent where not repeating.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>begin_<wbr>path</h2>
+<canvas id="begin_path" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "begin_path" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.moveTo( 0.0, 0.0 );
+        that.lineTo( width, height );
+        that.stroke();
+        that.strokeStyle = "#000000";
+        that.beginPath();
+        that.beginPath();
+        that.moveTo( width, 0.0 );
+        that.lineTo( 0.0, height );
+        that.stroke();
+        that.beginPath();
+        that.lineTo( 0.5 * width, height );
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>move_<wbr>to</h2>
+<canvas id="move_to" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "move_to" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        that.moveTo( 0.6 * width, height );
+        that.moveTo( 0.4 * width, 0.1 * height );
+        that.lineTo( 0.2 * width, 0.5 * height );
+        that.lineTo( 0.4 * width, 0.9 * height );
+        that.moveTo( 0.6 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.4 * height );
+        that.moveTo( 0.8 * width, 0.6 * height );
+        that.lineTo( 0.6 * width, 0.8 * height );
+        that.moveTo( 0.7 * width, 0.5 * height );
+        that.lineTo( 0.7 * width, 0.5 * height );
+        that.fill();
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>close_<wbr>path</h2>
+<canvas id="close_path" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "close_path" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        that.closePath();
+        that.lineTo( 0.5 * width, 0.5 * height );
+        that.lineTo( 0.2 * width, 0.8 * height );
+        that.lineTo( 0.2 * width, 0.2 * height );
+        that.closePath();
+        that.lineTo( 0.5 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.2 * height );
+        that.closePath();
+        that.closePath();
+        that.moveTo( 0.5 * width, 0.8 * height );
+        that.lineTo( 0.8 * width, 0.8 * height );
+        that.lineTo( 0.8 * width, 0.5 * height );
+        that.closePath();
+        that.fill();
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>line_<wbr>to</h2>
+<canvas id="line_to" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "line_to" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 16.0;
+        that.lineTo( 0.1 * width, 0.2 * height );
+        that.lineTo( 0.1 * width, 0.2 * height );
+        that.lineTo( 0.2 * width, 0.5 * height );
+        that.lineTo( 0.2 * width, 0.5 * height );
+        that.lineTo( 0.3 * width, 0.8 * height );
+        that.lineTo( 0.4 * width, 0.2 * height );
+        that.lineTo( 0.4 * width, 0.2 * height );
+        that.lineTo( 0.6 * width, 0.8 * height );
+        that.lineTo( 0.6 * width, 0.8 * height );
+        that.moveTo( 0.7 * width, 0.4 * height );
+        that.lineTo( 0.9 * width, 0.4 * height );
+        that.lineTo( 0.9 * width, 0.6 * height );
+        that.lineTo( 0.7 * width, 0.6 * height );
+        that.lineTo( 0.7 * width, 0.4 * height );
+        that.fill();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Upper miter is missing.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>quadratic_<wbr>curve_<wbr>to</h2>
+<canvas id="quadratic_curve_to" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "quadratic_curve_to" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        that.quadraticCurveTo( 0.1 * width, 0.2 * height,
+                               0.1 * width, 0.2 * height );
+        that.quadraticCurveTo( 0.2 * width, 0.5 * height,
+                               0.2 * width, 0.5 * height );
+        that.quadraticCurveTo( 0.3 * width, 0.8 * height,
+                               0.4 * width, 0.2 * height );
+        that.quadraticCurveTo( 0.6 * width, 0.8 * height,
+                               0.7 * width, 0.2 * height );
+        that.moveTo( 0.7 * width, 0.6 * height );
+        that.quadraticCurveTo( 0.9 * width, 0.6 * height,
+                               0.9 * width, 0.8 * height );
+        that.quadraticCurveTo( 0.9 * width, 0.9 * height,
+                               0.7 * width, 0.9 * height );
+        that.closePath();
+        that.moveTo( 0.1 * width, 0.9 * height );
+        that.quadraticCurveTo( 0.5 * width, 0.5 * height,
+                               0.1 * width, 0.9 * height );
+        that.fill();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Cusp on lower left curve is rounded.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Cusp on lower left curve is rounded.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Cusp on lower left curve is rounded.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Lower left curve is missing.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Cusp on lower left curve is rounded.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>bezier_<wbr>curve_<wbr>to</h2>
+<canvas id="bezier_curve_to" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "bezier_curve_to" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        that.bezierCurveTo( 0.9 * width, 0.9 * height,
+                            0.6 * width, 0.6 * height,
+                            0.6 * width, 0.9 * height );
+        that.moveTo( 0.1 * width, 0.1 * height );
+        that.bezierCurveTo( 0.9 * width, 0.9 * height,
+                            0.9 * width, 0.1 * height,
+                            0.1 * width, 0.9 * height );
+        that.moveTo( 0.4 * width, 0.1 * height );
+        that.bezierCurveTo( 0.1 * width, 0.3 * height,
+                            0.7 * width, 0.3 * height,
+                            0.4 * width, 0.1 * height );
+        that.moveTo( 0.9 * width, 0.1 * height );
+        that.bezierCurveTo( 0.6 * width, 0.2 * height,
+                            0.9 * width, 0.1 * height,
+                            0.6 * width, 0.2 * height );
+        that.moveTo( 0.7 * width, 0.3 * height );
+        that.bezierCurveTo( 0.9 * width, 0.3 * height,
+                            0.9 * width, 0.4 * height,
+                            0.8 * width, 0.5 * height );
+        that.bezierCurveTo( 0.7 * width, 0.6 * height,
+                            0.7 * width, 0.7 * height,
+                            0.9 * width, 0.7 * height );
+        that.fill();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Cusp on left curve is rounded.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Cusp on left curve is rounded.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Cusp on left curve is rounded.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Cusp on left curve is rounded.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>arc_<wbr>to</h2>
+<canvas id="arc_to" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "arc_to" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.5;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        that.arcTo( 0.3 * width, 0.3 * height,
+                    0.5 * width, 0.5 * height, 16.0 );
+        that.moveTo( 0.4 * width, 0.4 * height );
+        that.arcTo( 0.7 * width, 0.1 * height,
+                    0.7 * width, 0.4 * height, 0.0 );
+        that.arcTo( 0.9 * width, 0.5 * height,
+                    0.7 * width, 0.7 * height, 0.125 * radius );
+        that.arcTo( 0.5 * width, 0.9 * height,
+                    0.3 * width, 0.8 * height, 0.25 * radius );
+        that.arcTo( 0.1 * width, 0.7 * height,
+                    0.4 * width, 0.4 * height, 0.375 * radius );
+        that.closePath();
+        that.moveTo( 0.1 * width, 0.6 * height );
+        that.transform( 1.0, -1.0, 0.0, 1.0, 0.0, 0.2 * height );
+        that.arcTo( 0.1 * width, 0.9 * height,
+                    0.5 * width, 0.9 * height, 0.3 * radius );
+        that.setTransform( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
+        that.closePath();
+        that.moveTo( 0.2 * width, 0.1 * height );
+        that.arcTo( 0.1 * width, 0.1 * height,
+                    0.1 * width, 0.7 * height, 0.6 * radius );
+        that.arcTo( 0.2 * width, 0.4 * height,
+                    0.2 * width, 0.4 * height, 0.5 * radius );
+        that.arcTo( 0.4 * width, 0.2 * height,
+                    0.2 * width, 0.4 * height, 0.5 * radius );
+        try {
+            that.arcTo( 0.5 * width, 0.5 * height,
+                        0.9 * width, 0.1 * height, -1.0 );
+        } catch ( error ) {}
+        that.moveTo( 0.6 * width, 0.9 * height );
+        that.setTransform( 0.0, 0.0, 0.0, 1.0, 0.9 * width, 0.0 );
+        that.arcTo( 0.9 * width, 0.9 * height,
+                    0.9 * width, 0.6 * height, 0.3 * radius );
+        that.setTransform( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
+        that.arcTo( 0.9 * width, 0.6 * height,
+                    0.9 * width, 0.6 * height, 0.0 );
+        that.fill();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Attempts to find arc when transform is non-invertible.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Attempts to find arc when transform is non-invertible.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>arc</h2>
+<canvas id="arc" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "arc" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        for ( let i = 0; i < 4; ++i )
+            for ( let j = 0; j < 3; ++j )
+            {
+                const x = ( j + 0.5 ) * width / 3.0;
+                const y = ( i + 0.5 ) * height / 4.0;
+                const radius = Math.min( width, height ) * 0.1;
+                const start = ( 3.14159265 + 1.0e-6 ) * ( i % 2 );
+                const end = ( 3.14159265 + 1.0e-6 ) * ( 1.0 + 0.5 * j );
+                const counter = Math.trunc( i / 2 );
+                that.beginPath();
+                try {
+                    that.arc( x, y, -radius, start, end, counter );
+                } catch ( error ) {}
+                that.arc( x, y, radius, start, end, counter );
+                that.closePath();
+                that.fill();
+                that.stroke();
+            }
+    } );
+</script>
+<ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Degenerate arcs show as dots.</li>
+    <li>Miters are missing on some corners.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>rectangle</h2>
+<canvas id="rectangle" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "rectangle" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#ff0000";
+        that.lineWidth = 8.0;
+        that.moveTo( 0.3 * width, 0.3 * height );
+        that.lineTo( 0.7 * width, 0.3 * height );
+        that.lineTo( 0.7 * width, 0.7 * height );
+        that.lineTo( 0.3 * width, 0.7 * height );
+        that.closePath();
+        that.moveTo( 0.0, 0.0 );
+        for ( let y = -1.0; y <= 1.0; y += 1.0 )
+            for ( let x = -1.0; x <= 1.0; x += 1.0 )
+                that.rect( ( 0.5 + 0.1 * x ) * width,
+                           ( 0.5 + 0.1 * y ) * height,
+                           x * 0.3 * width, y * 0.3 * height );
+        that.lineTo( width, height );
+        that.fill();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Degenerate center rectangle shows as dot.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Negative width or height rectangles do not wind correctly.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>fill</h2>
+<canvas id="fill" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "fill" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.45;
+        that.fillStyle = "#000000";
+        that.fill();
+        that.beginPath();
+        for ( let step = 0.0; step < 128.0; step += 1.0 )
+        {
+            const angle = step * ( 59.0 / 128.0 * 6.28318531 );
+            const x = Math.cos( angle ) * radius + width / 2.0;
+            const y = Math.sin( angle ) * radius + height / 2.0;
+            that.lineTo( x, y );
+        }
+        that.closePath();
+        that.fill();
+        that.fillStyle = "#ff0000";
+        that.scale( 0.0, 1.0 );
+        that.fill();
+    } );
+</script>
+</div>
+
+<div>
+<h2>fill_<wbr>rounding</h2>
+<canvas id="fill_rounding" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "fill_rounding" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#000000";
+        that.beginPath();
+        that.moveTo( 4.00000191, 4.00000763 );
+        that.lineTo( 3.99999809, 192.0 );
+        that.lineTo( 28.0000019, 192.0 );
+        that.closePath();
+        that.moveTo( -10390.0664, 52.3311195 );
+        that.lineTo( -10389.9941, 47.6248589 );
+        that.lineTo( -10395.9941, 47.5328255 );
+        that.lineTo( -10396.0664, 52.2478294 );
+        that.closePath();
+        that.moveTo( 110.0, 256.0 );
+        that.lineTo( 124.086205, 255.998276 );
+        that.lineTo( 123.203453, 0.0 );
+        that.closePath();
+        that.fill();
+    } );
+</script>
+</div>
+
+<div>
+<h2>fill_<wbr>converging</h2>
+<canvas id="fill_converging" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "fill_converging" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.48;
+        that.fillStyle = "#000000";
+        for ( let step = 0.0; step < 256.0; step += 1.0 )
+        {
+            const angle1 = ( step + 0.0 ) / 256.0 * 6.28318531;
+            const angle2 = ( step + 0.5 ) / 256.0 * 6.28318531;
+            that.moveTo( width / 2.0 + 0.5, height / 2.0 + 0.5 );
+            that.lineTo( Math.cos( angle1 ) * radius + width  / 2.0 + 0.5,
+                         Math.sin( angle1 ) * radius + height / 2.0 + 0.5 );
+            that.lineTo( Math.cos( angle2 ) * radius + width  / 2.0 + 0.5,
+                         Math.sin( angle2 ) * radius + height / 2.0 + 0.5 );
+            that.closePath();
+        }
+        that.fill();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Center area is very gritty.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Center area is very gritty.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Center area is very gritty.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Center area is very gritty.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>fill_<wbr>zone_<wbr>plate</h2>
+<canvas id="fill_zone_plate" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "fill_zone_plate" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.floor( Math.min( width, height ) * 0.48 / 4.0 ) * 4.0;
+        that.fillStyle = "#000000";
+        for ( let step = 0.0; step < radius; step += 2.0 )
+        {
+            const inner = Math.sqrt( ( step + 0.0 ) / radius ) * radius;
+            const outer = Math.sqrt( ( step + 1.0 ) / radius ) * radius;
+            that.moveTo( width / 2.0 + inner, height / 2.0 );
+            that.arc( width / 2.0, height / 2.0, inner,
+                      0.0, 6.28318531 );
+            that.closePath();
+            that.moveTo( width / 2.0 + outer, height / 2.0 );
+            that.arc( width / 2.0, height / 2.0, outer,
+                      6.28318531, 0.0, true );
+            that.closePath();
+        }
+        that.fill();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Outer area is very gritty.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Outer area is very gritty.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Outer area is very gritty.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Top and bottom areas have a slight vertical distortion.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Outer area is very gritty.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>stroke</h2>
+<canvas id="stroke" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.45;
+        that.strokeStyle = "#000000";
+        that.stroke();
+        that.beginPath();
+        for ( let step = 0.0; step < 128.0; step += 1.0 )
+        {
+            const angle = step * ( 59.0 / 128.0 * 6.28318531 );
+            const x = Math.cos( angle ) * radius + width / 2.0;
+            const y = Math.sin( angle ) * radius + height / 2.0;
+            that.lineTo( x, y );
+        }
+        that.closePath();
+        that.stroke();
+        that.strokeStyle = "#ff0000";
+        that.scale( 0.0, 1.0 );
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>stroke_<wbr>wide</h2>
+<canvas id="stroke_wide" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke_wide" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.scale( width / 256.0, height / 256.0 );
+        that.lineJoin = "round";
+        that.moveTo( 24.0, 104.0 );
+        that.bezierCurveTo( 112.0, 24.0, 16.0, 24.0, 104.0, 104.0 );
+        that.moveTo( 152.0, 104.0 );
+        that.bezierCurveTo( 232.8, 24.0, 151.2, 24.0, 232.0, 104.0 );
+        that.moveTo( 24.0, 232.0 );
+        that.bezierCurveTo( 104.0, 152.0, 24.0, 152.0, 104.0, 232.0 );
+        that.moveTo( 188.0, 232.0 );
+        that.bezierCurveTo( 196.0, 184.0, 188.0, 184.0, 196.0, 192.0 );
+        that.lineWidth = 40.0;
+        that.stroke();
+        that.strokeStyle = "#ff0000";
+        that.lineWidth = 1.0;
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Lower-right curve has semi-circular indentation.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Lower-right curve has semi-circular indentation.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Upper-right curve flattened on top and has holes.</li>
+    <li>Lower-left curve flattened on top.</li>
+    <li>Lower-right curve has semi-circular indentation.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Lower-right curve has semi-circular indentation.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>stroke_<wbr>inner_<wbr>join</h2>
+<canvas id="stroke_inner_join" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke_inner_join" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const joins = [ "miter", "bevel", "round" ];
+        for ( let index = 0; index < 3; ++index )
+        {
+            const center = ( index + 0.5 ) / 3.0 * width;
+            that.beginPath();
+            that.moveTo( center - 0.05 * width, 0.275 * height );
+            that.lineTo( center, 0.225 * height );
+            that.lineTo( center + 0.025 * width, 0.25 * height );
+            that.moveTo( center - 0.05 * width, 0.775 * height );
+            that.bezierCurveTo( center, 0.725 * height,
+                                center, 0.725 * height,
+                                center + 0.025 * width, 0.75 * height );
+            that.lineJoin = joins[ index ];
+            that.strokeStyle = "#000000";
+            that.lineWidth = 0.3 * width;
+            that.stroke();
+            that.strokeStyle = "#ff0000";
+            that.lineWidth = 1.0;
+            that.stroke();
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>There are no inner joins.</li>
+    <li>Smooth curves pinch to a point and have tails.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>There are no inner joins.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>There are no inner joins.</li>
+    <li>Smooth curves pinch to a point and have tails.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>There are no inner joins.</li>
+    <li>Smooth curves pinch to a point and have tails.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>There are no inner joins.</li>
+    <li>Smooth curves pinch to a point and have tails.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>stroke_<wbr>spiral</h2>
+<canvas id="stroke_spiral" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke_spiral" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.lineWidth = 2.0;
+        that.beginPath();
+        const outside = Math.min( width, height ) * 0.48;
+        for ( let step = 0.0; step <= 2048.0; step += 1.0 )
+        {
+            const parameter = ( step - 1024.0 ) / 1024.0;
+            const angle = Math.abs( parameter ) * 12.0 * 6.28318531;
+            const radius = parameter * outside;
+            that.lineTo( Math.cos( angle ) * radius + width * 0.5,
+                         Math.sin( angle ) * radius + height * 0.5 );
+        }
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>stroke_<wbr>long</h2>
+<canvas id="stroke_long" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke_long" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        for ( let step = 0.0; step <= 29.0; step += 1.0 )
+        {
+            that.moveTo( 0.4 * width, -23.0 * height );
+            that.lineTo( width * step / 29.0, height );
+            that.moveTo( -23.0 * width, 0.4 * height );
+            that.lineTo( width, height * step / 29.0 );
+        }
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>clip</h2>
+<canvas id="clip" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "clip" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const radius = Math.min( width, height ) * 0.5;
+        that.lineWidth = 8.0;
+        for ( let step = 0; step < 8; ++step )
+        {
+            const fraction = step / 8.0;
+            const angle = fraction * 6.28318531;
+            that.strokeStyle = step & 1 ? "#00ff00" : "#000000";
+            that.beginPath();
+            that.arc( 0.5 * width + 0.8 * radius * Math.cos( angle ),
+                      0.5 * height + 0.8 * radius * Math.sin( angle ),
+                      radius, 0.0, 6.28318531 );
+            that.closePath();
+            that.stroke();
+            that.clip();
+        }
+        that.beginPath();
+        that.clip();
+        that.fillStyle = "#ff00ff";
+        that.fillRect( 0.0, 0.0, width, height );
+    } );
+</script>
+</div>
+
+<div>
+<h2>clip_<wbr>winding</h2>
+<canvas id="clip_winding" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "clip_winding" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.moveTo( 0.125 * width, 0.125 * height );
+        that.lineTo( 0.625 * width, 0.125 * height );
+        that.lineTo( 0.625 * width, 0.625 * height );
+        that.lineTo( 0.125 * width, 0.625 * height );
+        that.moveTo( 0.250 * width, 0.250 * height );
+        that.lineTo( 0.750 * width, 0.250 * height );
+        that.lineTo( 0.750 * width, 0.750 * height );
+        that.lineTo( 0.250 * width, 0.750 * height );
+        that.moveTo( 0.375 * width, 0.375 * height );
+        that.lineTo( 0.375 * width, 0.875 * height );
+        that.lineTo( 0.875 * width, 0.875 * height );
+        that.lineTo( 0.875 * width, 0.375 * height );
+        that.fillStyle = "#ff0000";
+        that.fill();
+        that.clip();
+        that.lineWidth = 4.0;
+        that.stroke();
+        that.lineWidth = 6.0;
+        that.beginPath();
+        for ( let step = 0.0; step < 32.0; step += 1.0 )
+        {
+            that.moveTo( step / 16.0 * width, 0.0 );
+            that.lineTo( step / 16.0 * width - width, height );
+        }
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>is_<wbr>point_<wbr>in_<wbr>path</h2>
+<canvas id="is_point_in_path" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "is_point_in_path" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#0000ff";
+        that.strokeStyle = "#ffffff";
+        if ( that.isPointInPath( 0.0, 0.0 ) )
+            that.fillRectangle( 0.0, 0.0, 16.0, 16.0 );
+        that.scale( width / 256.0, height / 256.0 );
+        that.beginPath();
+        that.moveTo( 65.0, 16.0 );
+        that.lineTo( 113.0, 24.0 );
+        that.bezierCurveTo( 113.0, 24.0, 93.0, 126.0, 119.0, 160.0 );
+        that.bezierCurveTo( 133.0, 180.0, 170.0, 196.0, 186.0, 177.0 );
+        that.bezierCurveTo( 198.0, 162.0, 182.0, 130.0, 166.0, 118.0 );
+        that.bezierCurveTo( 123.0, 80.0, 84.0, 124.0, 84.0, 124.0 );
+        that.lineTo( 35.0, 124.0 );
+        that.lineTo( 18.0, 56.0 );
+        that.lineTo( 202.0, 56.0 );
+        that.lineTo( 202.0, 90.0 );
+        that.bezierCurveTo( 202.0, 90.0, 240.0, 168.0, 209.0, 202.0 );
+        that.bezierCurveTo( 175.0, 240.0, 65.0, 187.0, 65.0, 187.0 );
+        that.closePath();
+        that.translate( 40.0, 160.0 );
+        that.moveTo( 110.0, 0.0 );
+        that.lineTo( 0.0, 0.0 );
+        that.lineTo( 0.0, 0.0 );
+        that.bezierCurveTo( 0.0, 90.0, 110.0, 90.0, 110.0, 40.0 );
+        that.closePath();
+        that.fill();
+        that.stroke();
+        for ( let index = 0; index < 256; ++index )
+        {
+            let bits = index;
+            bits = ( bits << 1 & 0xaa ) | ( bits >> 1 & 0x55 );
+            bits = ( bits << 2 & 0xcc ) | ( bits >> 2 & 0x33 );
+            bits = ( bits << 4 & 0xf0 ) | ( bits >> 4 & 0x0f );
+            const x = bits / 256.0 * width;
+            const y = index / 256.0 * height;
+            that.rotate( 0.5 );
+            const inside = that.isPointInPath( x, y );
+            that.setTransform( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
+            that.strokeStyle = inside ? "#00ff00" : "#ff0000";
+            that.strokeRect( x - 1.5, y - 1.5, 3.0, 3.0 );
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Four points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Four points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Four points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Three points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Four points exactly on the path are not considered inside.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>is_<wbr>point_<wbr>in_<wbr>path_<wbr>offscreen</h2>
+<canvas id="is_point_in_path_offscreen" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "is_point_in_path_offscreen" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#0000ff";
+        that.strokeStyle = "#ffffff";
+        that.scale( width / 256.0, height / 256.0 );
+        that.beginPath();
+        that.moveTo( 321.0, -240.0 );
+        that.lineTo( 369.0, -232.0 );
+        that.bezierCurveTo( 369.0, -232.0, 349.0, -130.0, 375.0, -96.0 );
+        that.bezierCurveTo( 389.0, -76.0, 426.0, -60.0, 442.0, -79.0 );
+        that.bezierCurveTo( 454.0, -94.0, 438.0, -126.0, 422.0, -138.0 );
+        that.bezierCurveTo( 379.0, -176.0, 340.0, -132.0, 340.0, -132.0 );
+        that.lineTo( 291.0, -132.0 );
+        that.lineTo( 274.0, -200.0 );
+        that.lineTo( 458.0, -200.0 );
+        that.lineTo( 458.0, -166.0 );
+        that.bezierCurveTo( 458.0, -166.0, 496.0, -88.0, 465.0, -54.0 );
+        that.bezierCurveTo( 431.0, -16.0, 321.0, -69.0, 321.0, -69.0 );
+        that.closePath();
+        that.translate( 40.0, 160.0 );
+        that.moveTo( 366.0, -256.0 );
+        that.lineTo( 256.0, -256.0 );
+        that.lineTo( 256.0, -256.0 );
+        that.bezierCurveTo( 256.0, -166.0, 366.0, -166.0, 366.0, -216.0 );
+        that.closePath();
+        that.fill();
+        that.stroke();
+        for ( let index = 0; index < 256; ++index )
+        {
+            let bits = index;
+            bits = ( bits << 1 & 0xaa ) | ( bits >> 1 & 0x55 );
+            bits = ( bits << 2 & 0xcc ) | ( bits >> 2 & 0x33 );
+            bits = ( bits << 4 & 0xf0 ) | ( bits >> 4 & 0x0f );
+            const x = bits / 256.0 * width;
+            const y = index / 256.0 * height;
+            that.rotate( 0.5 );
+            const inside = that.isPointInPath( x + width, y - height );
+            that.setTransform( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
+            that.strokeStyle = inside ? "#00ff00" : "#ff0000";
+            that.strokeRect( x - 1.5, y - 1.5, 3.0, 3.0 );
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Four points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Four points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Two points exactly on the path are not considered inside.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>One point exactly on the path is not considered inside.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Two points exactly on the path are not considered inside.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>clear_<wbr>rectangle</h2>
+<canvas id="clear_rectangle" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "clear_rectangle" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#ffffff";
+        that.fillStyle = "#660d33";
+        that.moveTo( 0.0, 0.0 );
+        that.lineTo( width, 0.0 );
+        that.lineTo( width, height );
+        that.lineTo( 0.0, height );
+        that.fill();
+        that.rotate( 0.2 );
+        that.beginPath();
+        that.moveTo( 0.2 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.8 * height );
+        that.shadowOffsetX = 5.0;
+        that.shadowColor = "rgba(0,0,0,1.0)";
+        that.globalCompositeOperation = "destination-atop";
+        that.globalAlpha = 0.5;
+        for ( let y = -1.0; y <= 1.0; y += 1.0 )
+            for ( let x = -1.0; x <= 1.0; x += 1.0 )
+                that.clearRect( ( 0.5 + 0.05 * x ) * width,
+                                ( 0.5 + 0.05 * y ) * height,
+                                x * 0.2 * width, y * 0.2 * height );
+        that.globalAlpha = 1.0;
+        that.globalCompositeOperation = "source-over";
+        that.shadowColor = "rgba(0,0,0,0)";
+        that.lineTo( 0.2 * width, 0.8 * height );
+        that.closePath();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Clearing is not antialiased.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Clearing is not antialiased.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>fill_<wbr>rectangle</h2>
+<canvas id="fill_rectangle" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "fill_rectangle" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.fillStyle = "#660d33";
+        that.rotate( 0.2 );
+        that.moveTo( 0.2 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.8 * height );
+        for ( let y = -1.0; y <= 1.0; y += 1.0 )
+            for ( let x = -1.0; x <= 1.0; x += 1.0 )
+                that.fillRect( ( 0.5 + 0.05 * x ) * width,
+                               ( 0.5 + 0.05 * y ) * height,
+                               x * 0.2 * width, y * 0.2 * height );
+        that.lineTo( 0.2 * width, 0.8 * height );
+        that.closePath();
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>stroke_<wbr>rectangle</h2>
+<canvas id="stroke_rectangle" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke_rectangle" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.rotate( 0.2 );
+        that.beginPath();
+        that.moveTo( 0.2 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.2 * height );
+        that.lineTo( 0.8 * width, 0.8 * height );
+        for ( let y = -1.0; y <= 1.0; y += 1.0 )
+            for ( let x = -1.0; x <= 1.0; x += 1.0 )
+                that.strokeRect( ( 0.5 + 0.05 * x ) * width,
+                                 ( 0.5 + 0.05 * y ) * height,
+                                 x * 0.2 * width, y * 0.2 * height );
+        that.lineTo( 0.2 * width, 0.8 * height );
+        that.closePath();
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Safari</li>
+  <ul>
+    <li>Center lines are extra heavy.</li>
+    <li>Jaggies show on one side of lines in small squares.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>text_<wbr>align</h2>
+<canvas id="text_align" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "text_align" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.font = ( 0.2 * height ) + "px FontA";
+        that.rotate( 0.2 );
+        that.fillStyle = "#000000";
+        const alignments = [ "left", "center", "right", "start", "end" ];
+        for ( let index = 0; index < 5; ++index )
+        {
+            const base = ( 0.1 + 0.2 * index ) * height;
+            that.textAlign = alignments[ index ];
+            that.fillText( "HIty", 0.5 * width, base );
+        }
+        that.strokeStyle = "rgba(255,0,0,0.5)";
+        that.lineWidth = 1.0;
+        that.moveTo( 0.0, 0.5 * height );
+        that.lineTo( width, 0.5 * height );
+        that.moveTo( 0.5 * width, 0.0 );
+        that.lineTo( 0.5 * width, height );
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>text_<wbr>baseline</h2>
+<canvas id="text_baseline" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "text_baseline" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.font = ( 0.2 * height ) + "px FontA";
+        that.rotate( 0.2 );
+        that.fillStyle = "#000000";
+        const baselines = [
+            "alphabetic", "top", "middle", "bottom", "hanging", "ideographic" ];
+        for ( let index = 0; index < 6; ++index )
+        {
+            const left = ( 0.1 + 0.15 * index ) * width;
+            that.textBaseline = baselines[ index ];
+            that.fillText( "Iy", left, 0.5 * height );
+        }
+        that.strokeStyle = "rgba(255,0,0,0.5)";
+        that.lineWidth = 1.0;
+        that.moveTo( 0.0, 0.5 * height );
+        that.lineTo( width, 0.5 * height );
+        that.moveTo( 0.5 * width, 0.0 );
+        that.lineTo( 0.5 * width, height );
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Safari</li>
+  <ul>
+    <li>Not using normalized sTypo metrics.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>font</h2>
+<canvas id="font" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "font" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const text = new TextDecoder().decode( new Uint8Array( [
+            0x43, 0x45, 0xc3, 0x8d, 0xf4, 0x8f, 0xbf, 0xbd, 0xf0, 0x49 ] ) );
+        that.strokeStyle = "#FF0000";
+        that.strokeText( "D", 0.8 * width, 0.95 * height );
+        that.fillStyle = "#FF0000";
+        that.fillText( "D", 0.9 * width, 0.95 * height );
+        that.font = ( 0.1 * height ) + "px";
+        that.fillStyle = "#000000";
+        that.font = ( 0.2 * height ) + "px FontA";
+        that.fillText( text, 0.0, 0.20 * height );
+        that.font = ( 0.1 * height ) + "px FontA";
+        that.fillText( text, 0.65 * width, 0.20 * height );
+        that.font = ( 0.2 * height ) + "px FontB";
+        that.fillText( text, 0.0, 0.45 * height );
+        that.font = ( 0.2 * height ) + "px FontC";
+        that.fillText( text, 0.0, 0.70 * height );
+        that.fillStyle = "#FF0000";
+        that.font = ( 0.2 * height ) + "px FontD";
+        that.fillText( "D", 0.1 * width, 0.95 * height );
+        that.font = ( 0.2 * height ) + "px FontE";
+        that.fillText( "D", 0.2 * width, 0.95 * height );
+        that.font = ( 0.2 * height ) + "px FontF";
+        that.fillText( "D", 0.3 * width, 0.95 * height );
+        that.font = ( 0.2 * height ) + "px FontG";
+        that.fillText( "D", 0.4 * width, 0.95 * height );
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Fonts with only cmap subtable formats 4 or 0 are rejected.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Fonts with only cmap subtable formats 4 or 0 are rejected.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Fonts with only cmap subtable formats 4 or 0 are rejected.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Fonts with only cmap subtable formats 4 or 0 are rejected.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>fill_<wbr>text</h2>
+<canvas id="fill_text" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "fill_text" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const gradient = that.createLinearGradient( 0.4 * width, 0.0, 0.6 * width, 0.0 );
+        gradient.addColorStop( 0.00, "#0000ff" );
+        gradient.addColorStop( 0.45, "#004080" );
+        gradient.addColorStop( 0.50, "#ff0000" );
+        gradient.addColorStop( 0.55, "#004080" );
+        gradient.addColorStop( 1.00, "#008000" );
+        that.fillStyle = gradient;
+        that.font = ( 0.3 * height ) + "px FontA";
+        that.rotate( 0.2 );
+        that.shadowOffsetX = 2.0;
+        that.shadowOffsetY = 2.0;
+        that.shadowBlur = 4.0;
+        that.shadowColor = "rgba(0,0,0,0.75)";
+        that.moveTo( 0.0, 0.2 * height );
+        that.fillText( "Canvas", 0.1 * width, 0.2 * height );
+        that.lineTo( width, 0.2 * height );
+        that.fillText( "Ity\n*", 0.2 * width, 0.5 * height, width );
+        that.moveTo( 0.0, 0.5 * height );
+        that.fillText( "*Canvas\fIty*", 0.2 * width, 0.8 * height, 0.7 * width );
+        that.fillStyle = "#ff0000";
+        that.fillText( "****", 0.1 * width, 0.35 * height, 0.0 );
+        that.lineTo( width, 0.5 * height );
+        that.shadowColor = "rgba(0,0,0,0)";
+        that.strokeStyle = "#ff0000";
+        that.lineWidth = 2.0;
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Rotation on compound glyph components is broken by max width.</li>
+    <li>Max width transforms fills.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Max width transforms fills.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Max width transforms fills.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Shadow positions are misaligned.</li>
+    <li>Max width does not affect shadow.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Max width transforms fills.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>stroke_<wbr>text</h2>
+<canvas id="stroke_text" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "stroke_text" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.strokeStyle = "#000000";
+        that.font = ( 0.3 * height ) + "px FontA";
+        that.rotate( 0.2 );
+        that.lineWidth = 2.0;
+        that.setLineDash( [ 8.0, 2.0 ] );
+        that.moveTo( 0.0, 0.2 * height );
+        that.strokeText( "Canvas", 0.1 * width, 0.2 * height );
+        that.lineTo( width, 0.2 * height );
+        that.strokeText( "Ity\n*", 0.2 * width, 0.5 * height, width );
+        that.moveTo( 0.0, 0.5 * height );
+        that.strokeText( "*Canvas\fIty*", 0.2 * width, 0.8 * height, 0.7 * width );
+        that.strokeStyle = "#ff0000";
+        that.strokeText( "****", 0.1 * width, 0.35 * height, 0.0 );
+        that.lineTo( width, 0.5 * height );
+        that.setLineDash( [] );
+        that.stroke();
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Rotation on compound glyph components is broken by max width.</li>
+    <li>Max width transforms strokes.</li>
+  </ul>
+  <li>Firefox (Direct2D)</li>
+  <ul>
+    <li>Max width transforms strokes.</li>
+  </ul>
+  <li>Chrome</li>
+  <ul>
+    <li>Max width transforms strokes.</li>
+  </ul>
+  <li>Safari</li>
+  <ul>
+    <li>Max width transforms strokes.</li>
+  </ul>
+  <li>Edge (Chromium)</li>
+  <ul>
+    <li>Max width transforms strokes.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>measure_<wbr>text</h2>
+<canvas id="measure_text" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "measure_text" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#000000";
+        let place = 0.1 * width;
+        // place += that.measureText( "C" ).width;
+        that.font = ( 0.3 * height ) + "px FontA";
+        that.rotate( 0.5 );
+        that.scale( 1.15, 1.0 );
+        that.fillText( "C", place, 0.2 * height );
+        place += that.measureText( "C" ).width;
+        that.fillText( "a", place, 0.25 * height );
+        place += that.measureText( "a" ).width;
+        that.fillText( "nv", place, 0.2 * height );
+        place += that.measureText( "nv" ).width;
+        that.fillText( "a", place, 0.15 * height );
+        place += that.measureText( "a" ).width;
+        that.fillText( "s", place, 0.2 * height );
+    } );
+</script>
+</div>
+
+<div>
+<h2>draw_<wbr>image</h2>
+<canvas id="draw_image" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "draw_image" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const checker = new Uint8ClampedArray( 1024 );
+        for ( let index = 0; index < 1024; ++index )
+            checker[ index ] =
+                ( ( ( index >> 2 & 1 ) ^ ( index >> 6 & 1 ) ) |
+                  ( ( index & 3 ) == 3 ) ) * 255;
+        const image = document.createElement( "canvas" );
+        image.width = 16;
+        image.height = 16;
+        image.getContext( "2d" ).putImageData(
+            new ImageData( checker, 16, 16 ), 0, 0 );
+        that.drawImage( image, 0.0, 0.0, width * 0.75, height * 0.75 );
+        for ( let row = 0.0; row < 4.0; row += 1.0 )
+            for ( let column = 0.0; column < 4.0; column += 1.0 )
+                that.drawImage( image,
+                                column * 17.25, row * 17.25, 16.0, 16.0 );
+        that.drawImage( image, 128.0, 0.0, 32.0, 8.0 );
+        that.drawImage( image, 128.0, 48.0, 32.0, -32.0 );
+        that.drawImage( image, 200.0, 16.0, -32.0, 32.0 );
+        that.drawImage( image, 128.0, 64.0, 32.0, 0.0 );
+        try {
+            that.drawImage( null, 200.0, 64.0, 32.0, 32.0 );
+        } catch ( error ) {}
+        const pixel = new Uint8ClampedArray( [ 0, 255, 0, 255 ] );
+        const image2 = document.createElement( "canvas" );
+        image2.width = 1;
+        image2.height = 1;
+        image2.getContext( "2d" ).putImageData(
+            new ImageData( pixel, 1, 1 ), 0, 0 );
+        that.drawImage( image2, width * 0.875, height * 0.25, 1.0, 1.0 );
+        that.drawImage( image2, width * 0.875, height * 0.5, 16.0, 16.0 );
+        that.rotate( 0.2 );
+        that.globalCompositeOperation = "lighter";
+        that.globalAlpha = 1.0;
+        that.drawImage( image,
+                        0.25 * width, 0.25 * height,
+                        0.5 * width, 0.5 * height );
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Large image shows banding.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>draw_<wbr>image_<wbr>matted</h2>
+<canvas id="draw_image_matted" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "draw_image_matted" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "rgba(0,255,0,0.0)";
+        that.fillRect( 0.0, 0.0, width, height );
+        const checker = new Uint8ClampedArray( [
+            0, 0, 255, 255,  255, 0, 0, 0,    0, 0, 255, 255,
+            255, 0, 0, 0,    0, 0, 255, 255,  255, 0, 0, 0,
+            0, 0, 255, 255,  255, 0, 0, 0,    0, 0, 255, 255,
+        ] );
+        const image = document.createElement( "canvas" );
+        image.width = 3;
+        image.height = 3;
+        image.getContext( "2d" ).putImageData(
+            new ImageData( checker, 3, 3 ), 0, 0 );
+        let y = 0.5;
+        let size_y = 3.0;
+        for ( let step_y = 0; step_y < 20 && y < height; ++step_y )
+        {
+            let x = 0.5;
+            let size_x = 3.0;
+            for ( let step_x = 0; step_x < 20 && x < width; ++step_x )
+            {
+                that.drawImage( image, x, y, size_x, size_y );
+                x += size_x + 5.0;
+                size_x *= 1.5;
+            }
+            y += size_y + 5.0;
+            size_y *= 1.5;
+        }
+    } );
+</script>
+<ul>
+  <li>Firefox (Skia)</li>
+  <ul>
+    <li>Resampling shows banding.</li>
+  </ul>
+</ul>
+</div>
+
+<div>
+<h2>get_<wbr>image_<wbr>data</h2>
+<canvas id="get_image_data" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "get_image_data" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        for ( let index = 0; index < 100; ++index )
+        {
+            that.fillStyle = "rgba(" +
+                ( index >> 1 ) % 2 * 255 + "," +
+                ( index >> 2 ) % 2 * 255 + "," +
+                ( index >> 3 ) % 2 * 255 + "," +
+                ( index >> 4 ) % 2 * 1.0 + ")";
+            that.fillRect( 3.0 * ( index % 10 ),
+                           3.0 * Math.trunc( index / 10 ),
+                           3.0, 3.0 );
+        }
+        const data = new Uint8ClampedArray( 4939 );
+        data[ 0 ] = 150;
+        for ( let index = 1; index < 4939; ++index )
+            data[ index ] = ( data[ index - 1 ] * 137 + 53 ) & 255;
+        const image = that.getImageData( -10, -10, 35, 35 );
+        for ( let y = 0; y < 35; ++y )
+            for ( let x = 0; x < 35 * 4; ++x )
+                data[ 2 + y * 141 + x ] = image.data[ y * 35 * 4 + x ];
+        let hash = 0;
+        for ( let index = 0; index < 4939; ++index )
+        {
+            hash = ( ( ( hash & 0x1ffff ) << 15 ) | ( hash >>> 17 ) ) ^ data[ index ];
+            hash = hash & 0xffffffff;
+        }
+        const expected = 0xf53f9792 | 0;
+        that.fillStyle = hash == expected ? "#00ff00" : "#ff0000";
+        that.fillRect( 30.0, 0.0, width, 30.0 );
+        const gradient = that.createLinearGradient( 0.0, 0.0, width, 0.0 );
+        gradient.addColorStop( 0.0, "#ff0000" );
+        gradient.addColorStop( 1.0, "#00ff00" );
+        that.fillStyle = gradient;
+        that.fillRect( 0.0, 0.45 * height, width, 0.1 * height );
+    } );
+</script>
+</div>
+
+<div>
+<h2>put_<wbr>image_<wbr>data</h2>
+<canvas id="put_image_data" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "put_image_data" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const checker = new Uint8ClampedArray( 2052 );
+        for ( let index = 0; index < 2048; ++index )
+            checker[ index + 2 ] =
+                ( ( ( ( index >> 2 & 1 ) ^ ( index >> 7 & 1 ) ) |
+                    ( ( index & 3 ) == 3 ) ) &
+                  ( index >> 10 & 1 ) ) * 255;
+        checker[ 0 ] = 157;
+        checker[ 1 ] = 157;
+        checker[ 2050 ] = 157;
+        checker[ 2051 ] = 157;
+        const image = that.createImageData( 16, 16 );
+        for ( let y = 0; y < 16; ++y )
+            for ( let x = 0; x < 16 * 4; ++x )
+                image.data[ y * 16 * 4 + x ] = checker[ 6 + y * 128 + x ];
+        that.fillStyle = "#660d33";
+        that.fillRect( 0, 0, 0.25 * width, 0.25 * height );
+        that.globalAlpha = 0.5;
+        that.globalCompositeOperation = "lighter";
+        that.rotate( 0.2 );
+        for ( let y = -10; y < height; y += 29 )
+            for ( let x = -10; x < width; x += 29 )
+                that.putImageData( image, x, y );
+        try {
+            that.putImageData( null, 0, 0 );
+        } catch ( error ) {}
+    } );
+</script>
+</div>
+
+<div>
+<h2>save_<wbr>restore</h2>
+<canvas id="save_restore" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "save_restore" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.rect( width * 0.25, height * 0.25,
+                   width * 0.25, height * 0.25 );
+        that.strokeStyle = "#0000ff";
+        that.lineWidth = 8.0;
+        that.save();
+        that.clip();
+        that.beginPath();
+        that.rect( width * 0.25, height * 0.25,
+                   width * 0.5, height * 0.5 );
+        that.strokeStyle = "#ff0000";
+        that.lineWidth = 1.0;
+        that.restore();
+        that.restore();
+        that.stroke();
+        that.save();
+        that.save();
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>button</h2>
+<canvas id="example_button" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_button" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const left = Math.round( 0.25 * width );
+        const right = Math.round( 0.75 * width );
+        const top = Math.round( 0.375 * height );
+        const bottom = Math.round( 0.625 * height );
+        const midX = ( left + right ) * 0.5;
+        const midY = ( top + bottom ) * 0.5;
+        that.shadowOffsetX = 3.0;
+        that.shadowOffsetY = 3.0;
+        that.shadowBlur = 3.0;
+        that.shadowColor = "rgba(0,0,0,0.5)";
+        const gradient = that.createLinearGradient( 0.0, top, 0.0, bottom );
+        gradient.addColorStop( 0.0, "#4c4c4c" );
+        gradient.addColorStop( 1.0, "#333333" );
+        that.fillStyle = gradient;
+        that.moveTo( left + 0.5, midY );
+        that.arcTo( left + 0.5, top + 0.5, midX, top + 0.5, 4.0 );
+        that.arcTo( right - 0.5, top + 0.5, right - 0.5, midY, 4.0 );
+        that.arcTo( right - 0.5, bottom - 0.5, midX, bottom - 0.5, 4.0 );
+        that.arcTo( left + 0.5, bottom - 0.5, left + 0.5, midY, 4.0 );
+        that.closePath();
+        that.fill();
+        that.shadowColor = "rgba(0,0,0,0)";
+        that.font = ( 0.075 * height ) + "px FontA";
+        that.textAlign = "center";
+        that.textBaseline = "middle";
+        that.fillStyle = "#cccccc";
+        that.fillText( "* Cats", 0.5 * width, 0.5 * height );
+        that.fillStyle = "#666666";
+        that.fillRect( left + 4.0, top + 1.0, right - left - 8.0, 1.0 );
+        that.strokeStyle = "#1a1a1a";
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>smiley</h2>
+<canvas id="example_smiley" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_smiley" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const centerX = 0.5 * width;
+        const centerY = 0.5 * height;
+        const radius = Math.min( width, height ) * 0.4;
+        let gradient = that.createRadialGradient( centerX, centerY, 0.0,
+                                                  centerX, centerY, radius );
+        gradient.addColorStop( 0.0, "#ffe633" );
+        gradient.addColorStop( 0.95, "#f2a626" );
+        gradient.addColorStop( 1.0, "#e68c00" );
+        that.fillStyle = gradient;
+        that.arc( centerX, centerY, radius, 0.0, 6.28318531 );
+        that.fill();
+        gradient = that.createLinearGradient( centerX, centerY - 0.95 * radius,
+                                              centerX, centerY );
+        gradient.addColorStop( 0.0, "rgba(255,255,255,0.5)" );
+        gradient.addColorStop( 1.0, "rgba(255,255,255,0)" );
+        that.fillStyle = gradient;
+        that.beginPath();
+        that.arc( centerX, centerY - 0.15 * radius, 0.8 * radius,
+                  0.0, 6.28318531 );
+        that.fill();
+        that.strokeColor = "rgba(0,0,0,0.95)";
+        that.lineWidth = 0.2 * radius;
+        that.lineCap = "round";
+        that.beginPath();
+        that.moveTo( centerX - 0.2 * radius, centerY - 0.5 * radius );
+        that.lineTo( centerX - 0.2 * radius, centerY - 0.2 * radius );
+        that.moveTo( centerX + 0.2 * radius, centerY - 0.5 * radius );
+        that.lineTo( centerX + 0.2 * radius, centerY - 0.2 * radius );
+        that.stroke();
+        that.fillStyle = "rgba(0,0,0,0.95)";
+        that.beginPath();
+        that.moveTo( centerX - 0.6 * radius, centerY + 0.1 * radius );
+        that.bezierCurveTo( centerX - 0.3 * radius, centerY + 0.8 * radius,
+                            centerX + 0.3 * radius, centerY + 0.8 * radius,
+                            centerX + 0.6 * radius, centerY + 0.1 * radius);
+        that.bezierCurveTo( centerX + 0.3 * radius, centerY + 0.3 * radius,
+                            centerX - 0.3 * radius, centerY + 0.3 * radius,
+                            centerX - 0.6 * radius, centerY + 0.1 * radius);
+        that.fill();
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>knot</h2>
+<canvas id="example_knot" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_knot" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        const points = [
+            [  0.0, -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  1.0 ],
+            [ -1.0, -1.0, -1.0,  0.0,  1.0,  0.0,  1.0,  1.0 ],
+            [  2.0,  1.0,  2.0, -2.0, -1.0, -2.0, -1.0, -1.0 ],
+            [ -2.0, -1.0, -2.0,  2.0,  1.0,  2.0,  1.0,  1.0 ],
+            [ -2.0, -1.0, -2.0, -3.0,  0.0, -3.0,  0.0, -1.0 ],
+            [  2.0,  1.0,  2.0,  3.0,  0.0,  3.0,  0.0,  1.0 ],
+        ];
+        that.translate( width * 0.5, height * 0.5 );
+        that.scale( width * 0.17, height * 0.17 );
+        that.rotate( -15.0 * 3.14159265 / 180.0 );
+        for ( let index = 0; index < 6; ++index )
+        {
+            that.beginPath();
+            that.moveTo(
+                1.01 * points[ index ][ 0 ] - 0.01 * points[ index ][ 2 ],
+                1.01 * points[ index ][ 1 ] - 0.01 * points[ index ][ 3 ] );
+            that.lineTo( points[ index ][ 0 ], points[ index ][ 1 ] );
+            that.bezierCurveTo( points[ index ][ 2 ], points[ index ][ 3 ],
+                                points[ index ][ 4 ], points[ index ][ 5 ],
+                                points[ index ][ 6 ], points[ index ][ 7 ] );
+            that.lineTo(
+                -0.01 * points[ index ][ 4 ] + 1.01 * points[ index ][ 6 ],
+                -0.01 * points[ index ][ 5 ] + 1.01 * points[ index ][ 7 ] );
+            that.strokeStyle = "#000000";
+            that.lineWidth = 0.75;
+            that.lineCap = "butt";
+            that.stroke();
+            const gradient = that.createRadialGradient( 0.0, 0.0, 0.0,
+                                                      0.0, 0.0, 3.0 );
+            gradient.addColorStop( 0.0, "#ccff99" );
+            gradient.addColorStop( 1.0, "#1a8020" );
+            that.strokeStyle = gradient;
+            that.lineWidth = 0.5;
+            that.lineCap = "round";
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>icon</h2>
+<canvas id="example_icon" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_icon" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.shadowColor = "#000000";
+        that.shadowOffsetX = width / 64.0;
+        that.shadowOffsetY = height / 64.0;
+        that.shadowBlur = Math.min( width, height ) / 32.0;
+        that.scale( width / 32.0, height / 32.0 );
+        that.fillStyle = "#660d33";
+        that.moveTo( 15.5, 1.0 );
+        that.arcTo( 30.0, 1.0, 30.0, 15.5, 6.0 );
+        that.arcTo( 30.0, 30.0, 15.5, 30.0, 6.0 );
+        that.arcTo( 1.0, 30.0, 1.0, 15.5, 6.0 );
+        that.arcTo( 1.0, 1.0, 15.5, 1.0, 6.0 );
+        that.fill();
+        that.strokeStyle = "#808080";
+        that.beginPath();
+        that.moveTo( 11.0, 16.0 );
+        that.lineTo( 27.0, 16.0 );
+        that.moveTo( 2.0, 23.0 );
+        that.lineTo( 29.0, 23.0 );
+        that.stroke();
+        that.strokeStyle = "#c0c0c0";
+        that.beginPath();
+        that.arc( 25.0, 22.0, 0.5, 0.0, 6.28318531 );
+        that.moveTo( 19.0, 6.0 );
+        that.lineTo( 18.5, 8.0 );
+        that.moveTo( 20.0, 6.0 );
+        that.lineTo( 20.0, 8.0 );
+        that.moveTo( 21.0, 6.0 );
+        that.lineTo( 21.5, 8.0 );
+        that.moveTo( 17.0, 14.0 );
+        that.lineTo( 16.0, 18.0 );
+        that.moveTo( 20.0, 14.0 );
+        that.lineTo( 20.0, 18.0 );
+        that.moveTo( 23.0, 14.0 );
+        that.lineTo( 24.0, 18.0 );
+        that.moveTo( 18.0, 9.0 );
+        that.lineTo( 22.0, 9.0 );
+        that.moveTo( 18.0, 13.0 );
+        that.lineTo( 22.0, 13.0 );
+        that.rect( 16.0, 8.0, 8.0, 6.0 );
+        that.stroke();
+        that.strokeStyle = "#ffffff";
+        that.beginPath();
+        that.arc( 19.0, 12.0, 9.0, 0.0, 6.28318531 );
+        that.moveTo( 12.3, 17.3 );
+        that.lineTo( 3.3, 26.3 );
+        that.moveTo( 13.0, 18.0 );
+        that.lineTo( 4.0, 27.0 );
+        that.moveTo( 13.7, 18.7 );
+        that.lineTo( 4.7, 27.7 );
+        that.stroke();
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>illusion</h2>
+<canvas id="example_illusion" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_illusion" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.fillStyle = "#0066ff";
+        that.fillRect( 0, 0, width, height );
+        that.fillStyle = "#cccc00";
+        that.lineWidth = 0.4;
+        for ( let spot = 0.0; spot < 240.0; spot += 1.0 )
+        {
+            const angle = ( ( spot * 0.61803398875 ) % 1.0 ) * 6.28318531;
+            const radius = spot / 240.0 * 0.5 * Math.hypot( width, height );
+            const size = Math.min( width, height ) * Math.sqrt( spot ) / 240.0;
+            that.setTransform( 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 );
+            that.translate( 0.5 * width + radius * Math.cos( angle ),
+                            0.5 * height + radius * Math.sin( angle ) );
+            that.rotate( angle - 1.3 );
+            that.scale( 0.8 * size, 0.6 * size );
+            that.rotate( 1.3 );
+            that.beginPath();
+            that.arc( 0.0, 0.0, 1.0, 0.0, 6.28318531 );
+            that.fill();
+            that.beginPath();
+            that.arc( 0.0, 0.0, 1.0, 0.0, 3.14159265 );
+            that.strokeStyle = "#ffffff";
+            that.stroke();
+            that.beginPath();
+            that.arc( 0.0, 0.0, 1.0, 3.14159265, 6.28318531 );
+            that.strokeStyle = "#000000";
+            that.stroke();
+        }
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>star</h2>
+<canvas id="example_star" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_star" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.scale( width / 256.0, height / 256.0 );
+        that.moveTo( 128.0, 28.0 );
+        that.lineTo( 157.0, 87.0 );
+        that.lineTo( 223.0, 97.0 );
+        that.lineTo( 175.0, 143.0 );
+        that.lineTo( 186.0, 208.0 );
+        that.lineTo( 128.0, 178.0 );
+        that.lineTo( 69.0, 208.0 );
+        that.lineTo( 80.0, 143.0 );
+        that.lineTo( 32.0, 97.0 );
+        that.lineTo( 98.0, 87.0 );
+        that.closePath();
+        that.shadowBlur = 8.0;
+        that.shadowOffsetY = 4.0;
+        that.shadowColor = "rgba(0,0,0,0.5)";
+        that.fillStyle = "#ffe633";
+        that.fill();
+        that.lineJoin = "round";
+        that.lineWidth = 12.0;
+        that.strokeStyle = "#e60080";
+        that.stroke();
+        that.setLineDash( [ 21.0, 9.0, 1.0, 9.0, 7.0, 9.0, 1.0, 9.0 ] );
+        that.lineDashOffset = 10.0;
+        that.lineCap = "round";
+        that.lineWidth = 6.0;
+        that.strokeStyle = "#f2a626";
+        that.stroke();
+        that.shadowColor = "rgba(0,0,0,0.0)";
+        let gradient = that.createLinearGradient( 64.0, 0.0, 192.0, 256.0 );
+        gradient.addColorStop( 0.30, "rgba(255,255,255,0.0)" );
+        gradient.addColorStop( 0.35, "rgba(255,255,255,0.8)" );
+        gradient.addColorStop( 0.45, "rgba(255,255,255,0.8)" );
+        gradient.addColorStop( 0.50, "rgba(255,255,255,0.0)" );
+        that.fillStyle = gradient;
+        that.globalCompositeOperation = "source-atop";
+        that.fillRect( 0.0, 0.0, 256.0, 256.0 );
+    } );
+</script>
+</div>
+
+<div>
+<h2>example_<wbr>neon</h2>
+<canvas id="example_neon" width="256" height="256"></canvas>
+<script type="text/javascript">
+    window.addEventListener( "load", function( event ) {
+        const element = document.getElementById( "example_neon" );
+        const that = element.getContext( "2d" );
+        const width = element.width;
+        const height = element.height;
+        that.scale( width / 256.0, height / 256.0 );
+        that.fillStyle = "#001020";
+        that.fillRect( 0.0, 0.0, 256.0, 256.0 );
+        that.moveTo( 45.5, 96.2 );
+        that.bezierCurveTo( 45.5, 96.2, 31.3, 106.2, 31.5, 113.1 );
+        that.bezierCurveTo( 31.7, 119.5, 50.6, 104.8, 50.6, 93.9 );
+        that.bezierCurveTo( 50.6, 91.1, 46.6, 89.1, 43.3, 89.4 );
+        that.bezierCurveTo( 27.5, 90.6, 8.5, 108.2, 8.8, 121.8 );
+        that.bezierCurveTo( 9.1, 133.1, 21.3, 136.6, 29.8, 136.3 );
+        that.bezierCurveTo( 52.4, 135.5, 62.3, 115.6, 62.3, 115.6 );
+        that.moveTo( 81.0, 120.2 );
+        that.bezierCurveTo( 81.0, 120.2, 60.2, 123.0, 59.7, 130.8 );
+        that.bezierCurveTo( 59.2, 140.6, 73.8, 136.4, 78.3, 125.3 );
+        that.moveTo( 80.7, 130.5 );
+        that.bezierCurveTo( 79.5, 132.4, 80.9, 135.0, 83.4, 135.0 );
+        that.bezierCurveTo( 95.8, 135.6, 99.3, 122.5, 111.4, 121.6 );
+        that.bezierCurveTo( 112.8, 121.5, 114.0, 123.0, 114.0, 124.3 );
+        that.bezierCurveTo( 113.9, 126.1, 106.7, 133.9, 106.7, 133.9 );
+        that.moveTo( 118.5, 122.9 );
+        that.bezierCurveTo( 118.5, 122.9, 122.1, 118.8, 126.1, 122.0 );
+        that.bezierCurveTo( 131.4, 126.4, 118.7, 131.6, 124.3, 134.7 );
+        that.bezierCurveTo( 130.0, 137.8, 150.0, 116.5, 156.0, 120.2 );
+        that.bezierCurveTo( 160.2, 122.8, 149.0, 133.5, 155.6, 133.6 );
+        that.bezierCurveTo( 162.0, 133.4, 173.8, 118.3, 168.0, 117.8 );
+        that.moveTo( 173.1, 123.2 );
+        that.bezierCurveTo( 177.8, 124.8, 182.8, 123.2, 187.0, 119.7 );
+        that.moveTo( 206.1, 118.6 );
+        that.bezierCurveTo( 206.1, 118.6, 185.3, 121.3, 185.1, 129.1 );
+        that.bezierCurveTo( 185.0, 138.7, 199.9, 135.4, 203.6, 123.6 );
+        that.moveTo( 205.6, 129.9 );
+        that.bezierCurveTo( 204.4, 131.8, 205.8, 134.4, 208.3, 134.4 );
+        that.bezierCurveTo( 220.3, 134.4, 246.6, 117.1, 246.6, 117.1 );
+        that.moveTo( 247.0, 122.4 );
+        that.bezierCurveTo( 245.9, 128.5, 243.9, 139.7, 231.2, 131.5 );
+        that.lineCap = "round";
+        that.shadowColor = "#ff8000";
+        that.shadowBlur = 20.0;
+        that.lineWidth = 4.0;
+        that.strokeStyle = "#ff8000";
+        that.stroke();
+        that.shadowBlur = 5.0;
+        that.lineWidth = 3.0;
+        that.strokeStyle = "#ffa000";
+        that.stroke();
+    } );
+</script>
+</div>
+
+</body>
+</html>

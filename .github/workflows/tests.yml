@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tests:
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        include:
+          - os: ubuntu-latest
+            testexe: test
+          - os: windows-latest
+            testexe: Debug/test.exe
+          - os: macos-latest
+            testexe: test
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DWITH_SANITIZERS=On ${{github.workspace}}/test
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config Debug
+      - name: Test
+        run: ${{github.workspace}}/build/${{matrix.testexe}} --plain
