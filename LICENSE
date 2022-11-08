@@ -1,0 +1,38 @@
+canvas_ity v1.00 -- ISC license
+
+Copyright (c) 2022 Andrew Kensler
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+//
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+======== ABOUT ========
+
+This is a tiny, single-header C++ library for rasterizing immediate-mode
+2D vector graphics, closely modeled on the basic W3C (not WHATWG) HTML5 2D
+canvas specification (https://www.w3.org/TR/2015/REC-2dcontext-20151119/).
+
+The priorities for this library are high-quality rendering, ease of use,
+and compact size.  Speed is important too, but secondary to the other
+priorities.  Notably, this library takes an opinionated approach and
+does not provide options for trading off quality for speed.
+
+Despite its small size, it supports nearly everything listed in the W3C
+HTML5 2D canvas specification, except for hit regions and getting certain
+properties.  The main differences lie in the surface-level API to make this
+easier for C++ use, while the underlying implementation is carefully based
+on the specification.  In particular, stroke, fill, gradient, pattern,
+image, and font styles are specified slightly differently (avoiding strings
+and auxiliary classes).  Nonetheless, the goal is that this library could
+produce a conforming HTML5 2D canvas implementation if wrapped in a thin
+layer of JavaScript bindings.  See the accompanying C++ automated test
+suite and its HTML5 port for a mapping between the APIs and a comparison
+of this library's rendering output against browser canvas implementations.
