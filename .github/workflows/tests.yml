@@ -2,8 +2,6 @@ name: Tests
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   tests:
@@ -16,17 +14,20 @@ jobs:
           - macos-latest
         include:
           - os: ubuntu-latest
+            sanitize: On
             testexe: test
           - os: windows-latest
+            sanitize: Off
             testexe: Debug/test.exe
           - os: macos-latest
+            sanitize: On
             testexe: test
     runs-on: ${{matrix.os}}
 
     steps:
       - uses: actions/checkout@v3
       - name: CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DWITH_SANITIZERS=On ${{github.workspace}}/test
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DWITH_SANITIZERS=${{matrix.sanitize}} ${{github.workspace}}/test
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config Debug
       - name: Test
